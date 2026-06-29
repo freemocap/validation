@@ -1,0 +1,30 @@
+[project]
+name = "validation"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "numpy==1.26.2",
+    "pandas==2.1.4",
+    "plotly==6.0.1",
+    "pyarrow==19.0.1",
+    "pydantic==2.7.4",
+    "pyyaml==6.0.2",
+    "scipy==1.11.4",
+    "skellyforge==2024.12.1009",
+    "skellymodels",
+]
+
+[tool.uv.sources]
+skellymodels = { git = "https://github.com/aaroncherian/skellymodels.git", rev = "validation-v1" }
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.15.20",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
