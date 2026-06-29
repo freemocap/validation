@@ -1,5 +1,3 @@
-# inside validation/steps/temporal_alignment/step.py
-
 from nicegui import ui, app
 import numpy as np
 import plotly.graph_objects as go

@@ -1,6 +1,6 @@
 
-from validation.steps.temporal_alignment.step import TemporalAlignmentStep
-from validation.steps.spatial_alignment.step   import SpatialAlignmentStep
+# from validation.steps.temporal_alignment.step import TemporalAlignmentStep
+# from validation.steps.spatial_alignment.step   import SpatialAlignmentStep
 from validation.steps.rmse.step                import RMSEStep
 
 from validation.steps.joint_angles.step import JointAnglesStep
@@ -10,8 +10,8 @@ from validation.steps.joint_angle_strides.step import JointAnglesStridesStep
 from validation.steps.gait_parameters.step import GaitParametersStep
 
 STEP_REGISTRY = {
-    "TemporalAlignmentStep": TemporalAlignmentStep,
-    "SpatialAlignmentStep":  SpatialAlignmentStep,
+    # "TemporalAlignmentStep": TemporalAlignmentStep,
+    # "SpatialAlignmentStep":  SpatialAlignmentStep,
     "RMSEStep":              RMSEStep,
     "JointAnglesStep":       JointAnglesStep,
     "StepFinderStep":        StepFinderStep,

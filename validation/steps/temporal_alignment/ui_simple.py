@@ -1,4 +1,3 @@
-# validation/steps/temporal_alignment/ui_simple.py
 from __future__ import annotations
 from typing import Dict, Callable
 import numpy as np

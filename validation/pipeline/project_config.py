@@ -1,4 +1,3 @@
-# validation/project_config.py
 from pathlib import Path
 from pydantic import BaseModel, Field
 
