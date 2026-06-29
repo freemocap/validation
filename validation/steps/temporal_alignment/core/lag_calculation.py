@@ -1,4 +1,3 @@
-# validation/steps/temporal_alignment/core/lag_calculation.py
 from __future__ import annotations
 
 from dataclasses import dataclass

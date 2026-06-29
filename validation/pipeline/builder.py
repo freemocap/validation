@@ -3,34 +3,64 @@ import yaml
 from validation.step_registry import STEP_REGISTRY
 from validation.pipeline.project_config import ProjectConfig
 from validation.pipeline.base import PipelineContext
+from typing import Any
 
-def build_pipeline(config_path:Path,
-                   step_list: list[str]|None = None, 
-                   use_rigid:bool = False) -> PipelineContext:
+RESERVED_CONFIG_KEYS = {
+    "trial_path",
+    "trackers",
+    "pipeline",
+    "ProjectConfig",
+}
+
+def load_pipeline_config(config_path: Path) -> dict[str, Any]:
     """
-    Build the pipeline from the config file and recording directory.
+    Load one trial-level pipeline YAML.
     """
-    with open(config_path, 'r') as f:
-        pipeline_config = yaml.safe_load(f)
-    if pipeline_config["path_to_recording"] is None:
-        raise ValueError("path_to_recording must be specified in the pipeline configuration YAML file.")
-    recording_dir = Path(pipeline_config.pop("path_to_recording"))
+    with config_path.open("r", encoding="utf-8") as file:
+        config = yaml.safe_load(file)
 
-    project_cfg = ProjectConfig(**pipeline_config.pop("ProjectConfig"))
-    ctx = PipelineContext(recording_dir=recording_dir,
-                          project_config=project_cfg,
-                          use_rigid=use_rigid)
-    
+    if not isinstance(config, dict):
+        raise ValueError(
+            f"Expected a YAML mapping in config file: {config_path}"
+        )
 
+    return config
 
-    for step_name, step_parameters in pipeline_config.items():
-        if step_name == "pipeline":
+def build_pipeline(
+    config: dict[str, Any],
+    recording_dir: Path,
+    tracker: str,
+):
+    project_config_data = dict(
+        config.get("ProjectConfig", {})
+    )
+
+    project_config_data["freemocap_tracker"] = tracker
+
+    project_config = ProjectConfig(
+        **project_config_data
+    )
+
+    context = PipelineContext(
+        recording_dir=recording_dir,
+        project_config=project_config,
+    )
+
+    for key, value in config.items():
+        if key in RESERVED_CONFIG_KEYS:
             continue
-        ctx.put(f"{step_name}.config", step_parameters)
 
+        # At this point, key should be a step name.
+        context.put(
+            f"{key}.config",
+            value,
+        )
 
-    step_classes = []
-    step_names = step_list if step_list else pipeline_config["pipeline"]
-    step_classes = [STEP_REGISTRY[name] for name in step_names]
-    
-    return ctx, step_classes
+    step_names = config["pipeline"]
+
+    step_classes = [
+        STEP_REGISTRY[step_name]
+        for step_name in step_names
+    ]
+
+    return context, step_classes

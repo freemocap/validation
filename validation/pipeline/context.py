@@ -8,7 +8,7 @@ from typing import Any
 class PipelineContext:
     recording_dir: Path
     project_config: ProjectConfig
-    use_rigid:bool
+    use_rigid: bool = False
     backpack: dict[str, Any] = field(default_factory = dict)
 
     def get(self, name:str) -> Any:
@@ -23,14 +23,15 @@ class PipelineContext:
             "tracker": self.project_config.freemocap_tracker,
             "recording_name": self.recording_dir.stem,
         }
+
+    #used for temporal/spatial alignment steps    
+    # @property
+    # def freemocap_path(self) -> Path:
+    #     return self.recording_dir / "validation" / self.project_config.freemocap_tracker
     
-    @property
-    def freemocap_path(self) -> Path:
-        return self.recording_dir / "validation" / self.project_config.freemocap_tracker
-    
-    @property
-    def qualisys_path(self) -> Path:
-        return self.recording_dir / "validation" / "qualisys"
+    # @property
+    # def qualisys_path(self) -> Path:
+    #     return self.recording_dir / "validation" / "qualisys"
 
     @property
     def conditions(self) -> dict:
