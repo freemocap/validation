@@ -1,6 +1,5 @@
 from validation.datatypes.data_component import DataComponent
 from validation.utils.io_helpers import load_csv, load_numpy, save_numpy, save_csv, return_path_only, empty_saver
-from validation.utils.save_trcs import save_as_trc
 
 FREEMOCAP_TIMESTAMPS = DataComponent(
     name="freemocap_timestamps",
@@ -34,15 +33,7 @@ TRANSFORMATION_MATRIX = DataComponent(
 FREEMOCAP_JOINT_CENTERS = DataComponent(
     name = "freemocap_aligned_3d",
     filename = "{tracker}_body_3d_xyz.npy",
-    relative_path = "validation/{tracker}",
-    loader = load_numpy,
-    saver = save_numpy
-)
-
-FREEMOCAP_RIGID_JOINT_CENTERS = DataComponent(
-    name = "freemocap_rigid_aligned_3d",
-    filename = "{tracker}_body_rigid_3d_xyz.npy",
-    relative_path = "validation/{tracker}",
+    relative_path = "{tracker}/aligned_3d_data",
     loader = load_numpy,
     saver = save_numpy
 )
@@ -55,7 +46,6 @@ FREEMOCAP_PARQUET = DataComponent(
     saver = empty_saver
 )
 
-
 FREEMOCAP_LAG = DataComponent(
     name = "freemocap_lag",
     filename = "freemocap_lag.csv",
@@ -67,7 +57,7 @@ FREEMOCAP_LAG = DataComponent(
 FREEMOCAP_JOINT_ANGLES = DataComponent(
     name = "freemocap_joint_angles",
     filename = "{tracker}_joint_angles.csv",
-    relative_path = "validation/{tracker}/joint_angles",
+    relative_path = "{tracker}/analysis_outputs/joint_angles",
     loader = load_csv,
     saver = save_csv
 )
@@ -75,7 +65,7 @@ FREEMOCAP_JOINT_ANGLES = DataComponent(
 FREEMOCAP_GAIT_EVENTS = DataComponent(
     name = "freemocap_gait_events",
     filename = "{tracker}_gait_events.csv",
-    relative_path = "validation/{tracker}/gait_events",
+    relative_path = "{tracker}/analysis_outputs/gait_events",
     loader = load_csv,
     saver = save_csv
 )

@@ -18,8 +18,6 @@ def get_model_info(freemocap_tracker: str):
     match freemocap_tracker:
         case "mediapipe":
             model_info = ModelInfo.from_config_path(config_path= path_to_model_folder/'mediapipe_model_info.yaml')
-        case "openpose":
-            model_info = ModelInfo.from_config_path(config_path= path_to_model_folder/'openpose_model_info.yaml')
         case "rtmpose":
             model_info = ModelInfo.from_config_path(config_path= path_to_model_folder/'rtmpose_model_info.yaml')
         case "vitpose":

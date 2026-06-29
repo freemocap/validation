@@ -14,8 +14,8 @@ def test_freemocap_parquet_public_path() -> None:
         / "freemocap_data_by_frame.parquet"
     )
 
-    actual = FREEMOCAP_PARQUET.get_path(
-        recording_dir=recording_root,
+    actual = FREEMOCAP_PARQUET.full_path(
+        recording_root,
         tracker="mediapipe",
     )
 
@@ -32,8 +32,6 @@ def test_qualisys_parquet_public_path() -> None:
         / "freemocap_data_by_frame.parquet"
     )
 
-    actual = QUALISYS_PARQUET.get_path(
-        recording_dir=recording_root,
-    )
+    actual = QUALISYS_PARQUET.full_path(recording_root)
 
     assert actual == expected
