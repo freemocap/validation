@@ -1,4 +1,3 @@
-from __future__ import annotations
 
 import logging
 from pathlib import Path
@@ -95,7 +94,7 @@ if __name__ == "__main__":
     )
 
     config_path = Path(
-        r"configs\sub-001\task-treadmill_trial-01.yaml"
+        r"configs\sub-004\task-balance_trial-01.yaml"
     )
 
     # None means use every tracker listed in the YAML.
@@ -103,9 +102,6 @@ if __name__ == "__main__":
 
     # To test only one tracker:
     # trackers_to_run = ["mediapipe"]
-
-    # To test two trackers:
-    # trackers_to_run = ["mediapipe", "vitpose"]
 
     start_at_step = 0
     use_rigid = False

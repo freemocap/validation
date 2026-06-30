@@ -1,0 +1,92 @@
+trial_path: sub-006/task-treadmill_trial-02
+
+trackers:
+- mediapipe
+- vitpose
+- rtmpose
+
+pipeline:
+- JointAnglesStep
+- StepFinderStep
+- GaitParametersStep
+- TrajectoryStridesStep
+- JointAnglesStridesStep
+- RMSEStep
+
+ProjectConfig:
+  qualisys_model_info_path: C:\Users\aaron\Documents\GitHub\freemocap_validation\qualisys_markerset\qualisys_model_info.yaml
+  conditions:
+    speed_0_5:
+      frames: [2100,2700]
+    speed_1_0:
+      frames: [3400,4000]
+    speed_1_5:
+      frames: [4300,4900]
+    speed_2_0:
+      frames: [5300,5900]
+    speed_2_5:
+      frames: [6400,7000]
+
+TemporalAlignmentStep:
+  start_frame: none
+  end_frame: none
+  qualisys_joint_weights_file: qualisys_joint_weights/validation_study_weights.yaml
+
+SpatialAlignmentStep:
+  markers_for_alignment:
+  - left_shoulder
+  - right_shoulder
+  - left_elbow
+  - right_elbow
+  - left_wrist
+  - right_wrist
+  - left_hip
+  - right_hip
+  - left_knee
+  - right_knee
+  - left_ankle
+  - right_ankle
+  - left_heel
+  - right_heel
+  - left_foot_index
+  - right_foot_index
+  frames_to_sample: 20
+  max_iterations: 100
+  inlier_threshold: 40
+
+JointAnglesStep:
+  neutral_frames: [20,180]
+
+StepFinderStep:
+  sampling_rate: 30.0
+  frames_of_interest: [2000,7100]
+
+TrajectoryStridesStep:
+  loop_over_conditions: true
+
+JointAnglesStridesStep:
+  loop_over_conditions: true
+
+RMSEStep:
+  loop_over_conditions: true
+  markers_for_comparison:
+  - left_shoulder
+  - right_shoulder
+  - left_elbow
+  - right_elbow
+  - left_wrist
+  - right_wrist
+  - left_hip
+  - right_hip
+  - left_knee
+  - right_knee
+  - left_ankle
+  - right_ankle
+  - left_heel
+  - right_heel
+  - left_foot_index
+  - right_foot_index
+
+GaitParametersStep:
+  loop_over_conditions: true
+  sampling_rate: 30.0
