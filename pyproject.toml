@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11,<3.12"
 dependencies = [
+    "kaleido==0.2.1",
     "numpy==1.26.2",
     "pandas==2.1.4",
     "plotly==6.0.1",
@@ -14,6 +15,8 @@ dependencies = [
     "scipy==1.11.4",
     "skellyforge==2024.12.1009",
     "skellymodels",
+    "spm1d>=0.4.53",
+    "tabulate>=0.10.0",
 ]
 
 [tool.uv.sources]
