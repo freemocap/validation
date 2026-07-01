@@ -19,10 +19,11 @@ def insert_trial(
     connection: sqlite3.Connection,
     trial_scan: TrialScan,
 ) -> int:
-    """
-    Insert one trial row and return its database ID.
-    """
     identity = trial_scan.identity
+
+    unique_trial_name = (
+        f"{identity.participant_code}_{identity.trial_name}"
+    )
 
     cursor = connection.execute(
         """
@@ -38,7 +39,7 @@ def insert_trial(
         """,
         (
             identity.participant_code,
-            identity.trial_name,
+            unique_trial_name,
             identity.trial_path,
             identity.trial_type,
             identity.trial_number,
@@ -337,7 +338,7 @@ if __name__ == "__main__":
 
     database_path = (
         repo_root
-        / "validation_public_test.db"
+        / "validation.db"
     )
 
     overwrite_database = True

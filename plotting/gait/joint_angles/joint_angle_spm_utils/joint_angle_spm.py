@@ -231,7 +231,7 @@ def run_spm_paired_ttests(
 
 
 if __name__ == "__main__":
-    from joint_angles_plots import load_joint_angle_data, compute_angle_summary
+    from plotting.gait.joint_angles.joint_angle_spm_utils.joint_angles_plots import load_joint_angle_data, compute_angle_summary
 
     root_dir = Path(r"D:\validation\gait\joint_angles")
     root_dir.mkdir(exist_ok=True, parents=True)

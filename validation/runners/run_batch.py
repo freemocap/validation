@@ -195,7 +195,7 @@ if __name__ == "__main__":
     trackers_to_run = None
 
     # Examples:
-    # trackers_to_run = ["mediapipe"]
+    trackers_to_run = ["mediapipe"]
     # trackers_to_run = ["mediapipe", "vitpose"]
 
     start_at_step = 0

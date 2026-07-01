@@ -19,7 +19,7 @@ import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from joint_angle_spm_utils.joint_angles_plots import (
+from plotting.gait.joint_angles.joint_angle_spm_utils.joint_angles_plots import (
     load_joint_angle_data,
     compute_angle_summary,
     speed_key,
@@ -28,7 +28,7 @@ from joint_angle_spm_utils.joint_angles_plots import (
     JOINT_ORDER,
     COMP_LABEL,
 )
-from joint_angle_spm_utils.joint_angle_spm import run_spm_paired_ttests
+from plotting.gait.joint_angles.joint_angle_spm_utils.joint_angle_spm import run_spm_paired_ttests
 
 # ============================================================
 # Config
