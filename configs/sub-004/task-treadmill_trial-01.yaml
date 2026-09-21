@@ -14,7 +14,7 @@ pipeline:
 - RMSEStep
 
 ProjectConfig:
-  qualisys_model_info_path: C:\Users\aaron\Documents\GitHub\freemocap_validation\qualisys_markerset\qualisys_model_info.yaml
+  qualisys_model_info_path: qualisys_markerset/qualisys_model_info.yaml
   conditions:
     speed_0_5:
       frames: [1200,1800]

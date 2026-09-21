@@ -78,40 +78,45 @@ def run_trial(
 
         pipeline.run(start_at=start_at)
 
-
 if __name__ == "__main__":
+    import argparse
+    import logging
+
     logging.basicConfig(
         level=logging.INFO,
         format="[%(levelname)s] %(message)s",
     )
 
-    # -----------------------------------------------------------------
-    # USER SETTINGS
-    # -----------------------------------------------------------------
-
-    dataset_root = Path(
-        r"D:\validation_public_release_v1\data"
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--dataset-root",
+        type=Path,
+        required=True,
+    )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        required=True,
+    )
+    parser.add_argument(
+        "--tracker",
+        action="append",
+        dest="trackers",
+        default=None,
+        help="Optional tracker to run. Repeat for multiple trackers.",
+    )
+    parser.add_argument(
+        "--start-at",
+        type=int,
+        default=0,
     )
 
-    config_path = Path(
-        r"configs\sub-004\task-balance_trial-01.yaml"
-    )
-
-    # None means use every tracker listed in the YAML.
-    trackers_to_run = None
-
-    # To test only one tracker:
-    # trackers_to_run = ["mediapipe"]
-
-    start_at_step = 0
-    use_rigid = False
-
-    # -----------------------------------------------------------------
+    args = parser.parse_args()
 
     run_trial(
-        config_path=config_path,
-        dataset_root=dataset_root,
-        trackers=trackers_to_run,
-        start_at=start_at_step,
-        use_rigid=use_rigid,
+        config_path=args.config,
+        dataset_root=args.dataset_root,
+        trackers=args.trackers,
+        start_at=args.start_at,
+        use_rigid=False,
     )

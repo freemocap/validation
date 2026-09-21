@@ -37,6 +37,9 @@ def build_pipeline(
 
     project_config_data["freemocap_tracker"] = tracker
 
+    # Resolve repo-relative paths
+    repo_root = Path(__file__).resolve().parents[2]
+
     project_config = ProjectConfig(
         **project_config_data
     )

@@ -14,6 +14,7 @@ from database.scanner import (
     scan_trial_config,
 )
 
+from database.create_views import create_views
 
 def insert_trial(
     connection: sqlite3.Connection,
@@ -257,6 +258,7 @@ def build_database(
                 "the scanned count."
             )
 
+        create_views(connection)
     except Exception:
         connection.rollback()
         raise
@@ -319,45 +321,60 @@ def print_database_summary(
 
 
 if __name__ == "__main__":
-    repo_root = (
-        Path(__file__).resolve().parents[1]
+    import argparse
+
+    repo_root = Path(__file__).resolve().parents[1]
+
+    parser = argparse.ArgumentParser(
+        description="Build the FreeMoCap validation artifact database."
     )
 
-    # -----------------------------------------------------------------
-    # USER SETTINGS
-    # -----------------------------------------------------------------
-
-    dataset_root = Path(
-        r"D:\validation_public_release_v1\data"
+    parser.add_argument(
+        "--dataset-root",
+        type=Path,
+        required=True,
+        help="Path to the public dataset 'data' directory.",
     )
 
-    config_root = (
-        repo_root
-        / "configs"
+    parser.add_argument(
+        "--config-root",
+        type=Path,
+        default=repo_root / "configs",
+        help="Directory containing trial YAML configs. Defaults to repo/configs.",
     )
 
-    database_path = (
-        repo_root
-        / "validation.db"
+    parser.add_argument(
+        "--database-path",
+        type=Path,
+        default=repo_root / "validation.db",
+        help="Output SQLite database path. Defaults to repo/validation.db.",
     )
 
-    overwrite_database = True
+    parser.add_argument(
+        "--only-existing-artifacts",
+        action="store_true",
+        help="Index only artifacts that actually exist on disk.",
+    )
 
-    # False preserves rows for expected-but-missing artifacts.
-    # This is useful for completeness checks and matches the behavior
-    # of the original database design more closely.
-    only_existing_artifacts = False
+    parser.add_argument(
+        "--no-overwrite",
+        action="store_false",
+        dest="overwrite",
+        help="Do not clear the existing database before indexing.",
+    )
 
-    # -----------------------------------------------------------------
+    parser.set_defaults(overwrite=True)
+
+    args = parser.parse_args()
 
     build_database(
-        dataset_root=dataset_root,
-        config_root=config_root,
-        database_path=database_path,
-        overwrite=overwrite_database,
-        only_existing_artifacts=only_existing_artifacts,
+        dataset_root=args.dataset_root,
+        config_root=args.config_root,
+        database_path=args.database_path,
+        overwrite=args.overwrite,
+        only_existing_artifacts=args.only_existing_artifacts,
     )
 
     print_database_summary(
-        database_path
+        args.database_path
     )

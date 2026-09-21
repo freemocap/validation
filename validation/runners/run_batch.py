@@ -3,12 +3,10 @@ from __future__ import annotations
 import logging
 import os
 import traceback
-from concurrent.futures import ProcessPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 
 from validation.runners.run_trial import run_trial
-
 
 @dataclass(frozen=True)
 class TrialRunResult:
@@ -69,22 +67,15 @@ def find_config_files(
 
     return config_files
 
-
 def run_batch(
     config_root: Path,
     dataset_root: Path,
     trackers: list[str] | None = None,
     start_at: int = 0,
     use_rigid: bool = False,
-    max_workers: int = 1,
     config_pattern: str = "*.yaml",
 ) -> list[TrialRunResult]:
-    """
-    Run all trial YAMLs beneath config_root.
 
-    Parallelization happens across trials. Trackers within each trial
-    are run sequentially by run_trial().
-    """
     config_root = config_root.resolve()
     dataset_root = dataset_root.resolve()
 
@@ -93,87 +84,70 @@ def run_batch(
         pattern=config_pattern,
     )
 
-    if max_workers is None:
-        cpu_count = os.cpu_count() or 1
-        max_workers = min(len(config_files), cpu_count)
-
-    max_workers = max(1, min(max_workers, len(config_files)))
-
     print(f"Found {len(config_files)} trial configs.")
-    print(f"Using {max_workers} worker processes.")
     print(f"Dataset root: {dataset_root}")
 
-    results: list[TrialRunResult] = []
+    results = []
 
-    with ProcessPoolExecutor(
-        max_workers=max_workers,
-    ) as executor:
-        future_to_config = {
-            executor.submit(
-                run_trial_worker,
-                config_path,
-                dataset_root,
-                trackers,
-                start_at,
-                use_rigid,
-            ): config_path
-            for config_path in config_files
-        }
+    for completed_count, config_path in enumerate(
+        config_files,
+        start=1,
+    ):
+        print()
+        print(
+            f"[{completed_count}/{len(config_files)}] "
+            f"Running: {config_path}"
+        )
 
-        for completed_count, future in enumerate(
-            as_completed(future_to_config),
-            start=1,
-        ):
-            config_path = future_to_config[future]
+        try:
+            run_trial(
+                config_path=config_path,
+                dataset_root=dataset_root,
+                trackers=trackers,
+                start_at=start_at,
+                use_rigid=use_rigid,
+            )
 
-            try:
-                result = future.result()
-            except Exception:
-                result = TrialRunResult(
-                    config_path=config_path,
-                    succeeded=False,
-                    error_message=traceback.format_exc(),
-                )
-
-            results.append(result)
-
-            status = "PASSED" if result.succeeded else "FAILED"
+            result = TrialRunResult(
+                config_path=config_path,
+                succeeded=True,
+            )
 
             print(
                 f"[{completed_count}/{len(config_files)}] "
-                f"{status}: {config_path}"
+                f"PASSED: {config_path}"
             )
 
-            if result.error_message:
-                print(result.error_message)
+        except Exception:
+            error_message = traceback.format_exc()
 
-    successful = [
-        result
-        for result in results
-        if result.succeeded
-    ]
-    failed = [
-        result
-        for result in results
-        if not result.succeeded
-    ]
+            result = TrialRunResult(
+                config_path=config_path,
+                succeeded=False,
+                error_message=error_message,
+            )
+
+            print(
+                f"[{completed_count}/{len(config_files)}] "
+                f"FAILED: {config_path}"
+            )
+            print(error_message)
+
+        results.append(result)
+
+    successful = [r for r in results if r.succeeded]
+    failed = [r for r in results if not r.succeeded]
 
     print()
     print("Batch complete")
     print(f"Successful trials: {len(successful)}")
     print(f"Failed trials:     {len(failed)}")
 
-    if failed:
-        print()
-        print("Failed configs:")
-
-        for result in failed:
-            print(f"  - {result.config_path}")
-
     return results
 
-
 if __name__ == "__main__":
+    import argparse
+
     logging.basicConfig(
         level=logging.INFO,
         format="[%(levelname)s] %(message)s",
@@ -181,37 +155,63 @@ if __name__ == "__main__":
 
     repo_root = Path(__file__).resolve().parents[2]
 
-    # -----------------------------------------------------------------
-    # USER SETTINGS
-    # -----------------------------------------------------------------
-
-    config_root = repo_root / "configs"
-
-    dataset_root = Path(
-        r"D:\validation_public_release_v1\data"
+    parser = argparse.ArgumentParser(
+        description="Run the FreeMoCap validation pipeline across all configured trials."
     )
 
-    # None runs every tracker listed in each YAML.
-    trackers_to_run = None
+    parser.add_argument(
+        "--dataset-root",
+        type=Path,
+        required=True,
+        help="Path to the public dataset 'data' directory containing sub-001, sub-002, etc.",
+    )
 
-    # Examples:
-    trackers_to_run = ["mediapipe"]
-    # trackers_to_run = ["mediapipe", "vitpose"]
+    parser.add_argument(
+        "--config-root",
+        type=Path,
+        default=repo_root / "configs",
+        help="Directory containing trial YAML configs. Defaults to repo/configs.",
+    )
 
-    start_at_step = 0
-    use_rigid = False
+    parser.add_argument(
+        "--tracker",
+        action="append",
+        dest="trackers",
+        default=None,
+        help=(
+            "Optional tracker to run. Repeat for multiple trackers. "
+            "If omitted, all trackers listed in each YAML are run."
+        ),
+    )
 
-    config_pattern = "*.yaml"
+    parser.add_argument(
+        "--start-at",
+        type=int,
+        default=0,
+        help="Pipeline step index to start at. Defaults to 0.",
+    )
 
-    # -----------------------------------------------------------------
+    parser.add_argument(
+        "--use-rigid",
+        action="store_true",
+        help="Use rigid-body trajectories where supported.",
+    )
+
+    parser.add_argument(
+        "--config-pattern",
+        default="*.yaml",
+        help="Config filename pattern. Defaults to '*.yaml'.",
+    )
+
+    args = parser.parse_args()
 
     batch_results = run_batch(
-        config_root=config_root,
-        dataset_root=dataset_root,
-        trackers=trackers_to_run,
-        start_at=start_at_step,
-        use_rigid=use_rigid,
-        config_pattern=config_pattern,
+        config_root=args.config_root,
+        dataset_root=args.dataset_root,
+        trackers=args.trackers,
+        start_at=args.start_at,
+        use_rigid=args.use_rigid,
+        config_pattern=args.config_pattern,
     )
 
     failed_results = [
@@ -222,3 +222,6 @@ if __name__ == "__main__":
 
     if failed_results:
         raise SystemExit(1)
+
+
+    

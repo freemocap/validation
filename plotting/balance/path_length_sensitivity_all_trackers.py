@@ -11,8 +11,8 @@ class PlotConfig:
     reference_system: str = "qualisys"
     freemocap_trackers: tuple[str] = ("mediapipe", "vitpose", "rtmpose")
 
-    plot_height=400
-    plot_width=1000
+    plot_height = 400
+    plot_width = 1000
 
     plot_order_and_titles = {
         "eyes_on_solid": "<b> Visual <br> Perturbation </b>",
