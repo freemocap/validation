@@ -21,63 +21,15 @@ from validation.components import (
     QUALISYS_GAIT_SUMMARY_STATS,
     FREEMOCAP_GAIT_METRICS,
     FREEMOCAP_GAIT_SUMMARY_STATS,
+    FREEMOCAP_BALANCE_METRICS,
+    QUALISYS_BALANCE_METRICS,
+    FREEMOCAP_BALANCE_VELOCITIES,
+    QUALISYS_BALANCE_VELOCITIES
 )
 from validation.datatypes.data_component import DataComponent
 
 
-FREEMOCAP_PATH_LENGTH_COM = DataComponent(
-    name="path_length_com",
-    filename="condition_data.json",
-    relative_path=(
-        "{tracker}/analysis_outputs/"
-        "path_length_analysis"
-    ),
-)
 
-QUALISYS_PATH_LENGTH_COM = DataComponent(
-    name="qualisys_path_length_com",
-    filename="condition_data.json",
-    relative_path=(
-        "qualisys/analysis_outputs/"
-        "path_length_analysis"
-    ),
-)
-
-FREEMOCAP_BALANCE_POSITIONS = DataComponent(
-    name="balance_positions",
-    filename="condition_positions.csv",
-    relative_path=(
-        "{tracker}/analysis_outputs/"
-        "path_length_analysis"
-    ),
-)
-
-FREEMOCAP_BALANCE_VELOCITIES = DataComponent(
-    name="balance_velocities",
-    filename="condition_velocities.csv",
-    relative_path=(
-        "{tracker}/analysis_outputs/"
-        "path_length_analysis"
-    ),
-)
-
-QUALISYS_BALANCE_POSITIONS = DataComponent(
-    name="qualisys_balance_positions",
-    filename="condition_positions.csv",
-    relative_path=(
-        "qualisys/analysis_outputs/"
-        "path_length_analysis"
-    ),
-)
-
-QUALISYS_BALANCE_VELOCITIES = DataComponent(
-    name="qualisys_balance_velocities",
-    filename="condition_velocities.csv",
-    relative_path=(
-        "qualisys/analysis_outputs/"
-        "path_length_analysis"
-    ),
-)
 
 
 BALANCE = {
@@ -86,12 +38,11 @@ BALANCE = {
         QUALISYS_PARQUET,
     ],
     "com_analysis": [
-        FREEMOCAP_PATH_LENGTH_COM,
-        QUALISYS_PATH_LENGTH_COM,
+        FREEMOCAP_BALANCE_METRICS,
+        QUALISYS_BALANCE_METRICS,
         FREEMOCAP_BALANCE_VELOCITIES,
         QUALISYS_BALANCE_VELOCITIES,
-        FREEMOCAP_BALANCE_POSITIONS,
-        QUALISYS_BALANCE_POSITIONS,
+
     ],
 }
 

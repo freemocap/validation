@@ -378,3 +378,5 @@ if __name__ == "__main__":
     print_database_summary(
         args.database_path
     )
+
+    #uv run python -m database.index_recordings  --dataset-root D:\validation_public_release_v1\data 
