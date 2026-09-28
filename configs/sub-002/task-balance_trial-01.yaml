@@ -7,7 +7,7 @@ trackers:
 - rtmpose
 
 pipeline:
-- RMSEStep
+- BalanceStep
 
 ProjectConfig:
   qualisys_model_info_path: qualisys_markerset/qualisys_model_info.yaml

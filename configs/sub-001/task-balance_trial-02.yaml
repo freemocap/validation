@@ -24,7 +24,7 @@ ProjectConfig:
 
     
 pipeline:
-  - RMSEStep
+  - BalanceStep
 
 TemporalAlignmentStep: 
   start_frame: null
