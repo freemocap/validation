@@ -26,6 +26,8 @@ ProjectConfig:
       frames: [5300,5900]
     speed_2_5:
       frames: [6400,7000]
+  sampling_rate: 30.0
+
 
 TemporalAlignmentStep:
   start_frame: none

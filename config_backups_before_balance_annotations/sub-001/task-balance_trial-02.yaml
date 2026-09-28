@@ -7,22 +7,8 @@ trackers:
 
 ProjectConfig:
   qualisys_model_info_path: qualisys_markerset/qualisys_model_info.yaml
-  conditions:
-    eyes_open_solid:
-      frames: [925, 2525]
-      label: "Eyes Open/Solid Ground"
-    eyes_closed_solid:
-      frames: [3250, 4850]
-      label: "Eyes Closed/Solid Ground"
-    eyes_open_foam:
-      frames: [6030, 7630]
-      label: "Eyes Open/Foam"
-    eyes_closed_foam:
-      frames: [8400, 10000]
-      label: "Eyes Closed/Foam"
-  sampling_rate: 30.0
+  conditions: ~
 
-    
 pipeline:
   - RMSEStep
 

@@ -1,4 +1,4 @@
-trial_path: sub-005/task-treadmill_trial-02
+trial_path: sub-004/task-balance_trial-02
 
 trackers:
 - mediapipe
@@ -6,25 +6,11 @@ trackers:
 - rtmpose
 
 pipeline:
-- JointAnglesStep
-- StepFinderStep
-- GaitParametersStep
-- TrajectoryStridesStep
-- JointAnglesStridesStep
 - RMSEStep
 
 ProjectConfig:
   qualisys_model_info_path: qualisys_markerset/qualisys_model_info.yaml
-  conditions:
-    speed_0_5:
-      frames: [1500,2100]
-    speed_1_0:
-      frames: [2400,3000]
-    speed_1_5:
-      frames: [3500,4100]
-    speed_2_0:
-      frames: [4700,5300]
-  sampling_rate: 30.0
+  conditions: null
 
 TemporalAlignmentStep:
   start_frame: none
@@ -53,19 +39,6 @@ SpatialAlignmentStep:
   max_iterations: 100
   inlier_threshold: 40
 
-JointAnglesStep:
-  neutral_frames: [640,750]
-
-StepFinderStep:
-  sampling_rate: 30.0
-  frames_of_interest: [1400,5400]
-
-TrajectoryStridesStep:
-  loop_over_conditions: true
-
-JointAnglesStridesStep:
-  loop_over_conditions: true
-
 RMSEStep:
   loop_over_conditions: true
   markers_for_comparison:
@@ -85,7 +58,3 @@ RMSEStep:
   - right_heel
   - left_foot_index
   - right_foot_index
-
-GaitParametersStep:
-  loop_over_conditions: true
-  sampling_rate: 30.0

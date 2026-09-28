@@ -1,5 +1,7 @@
 trial_path: sub-001/task-balance_trial-01
 
+
+
 trackers:
   - mediapipe
   - vitpose
@@ -7,12 +9,23 @@ trackers:
 
 ProjectConfig:
   qualisys_model_info_path: qualisys_markerset/qualisys_model_info.yaml
-  conditions: ~
-
+  conditions:
+    eyes_open_solid:
+      frames: [800, 2400]
+      label: "Eyes Open/Solid Ground"
+    eyes_closed_solid:
+      frames: [3050, 4650]
+      label: "Eyes Closed/Solid Ground"
+    eyes_open_foam:
+      frames: [6200, 7800]
+      label: "Eyes Open/Foam"
+    eyes_closed_foam:
+      frames: [8500, 10100]
+      label: "Eyes Closed/Foam"
+  sampling_rate: 30.0
 
 pipeline:
-  - RMSEStep
-
+  - BalanceStep
 
 
 TemporalAlignmentStep: 

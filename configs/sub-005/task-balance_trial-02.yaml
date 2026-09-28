@@ -10,7 +10,21 @@ pipeline:
 
 ProjectConfig:
   qualisys_model_info_path: qualisys_markerset/qualisys_model_info.yaml
-  conditions: null
+  conditions:
+    eyes_open_solid:
+      frames: [1250, 2850]
+      label: "Eyes Open/Solid Ground"
+    eyes_closed_solid:
+      frames: [3500, 5100]
+      label: "Eyes Closed/Solid Ground"
+    eyes_open_foam:
+      frames: [6500, 8100]
+      label: "Eyes Open/Foam"
+    eyes_closed_foam:
+      frames: [8800, 10400]
+      label: "Eyes Closed/Foam"
+  sampling_rate: 30.0
+
 
 TemporalAlignmentStep:
   start_frame: none
