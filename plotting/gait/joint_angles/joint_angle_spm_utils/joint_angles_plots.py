@@ -56,7 +56,7 @@ def rgba(hex_color, alpha):
 
 
 
-def load_joint_angle_data(db_path: str = "validation.db") -> pd.DataFrame:
+def load_joint_angle_data(db_path = DATABASE_PATH) -> pd.DataFrame:
     """
     Load joint angle per-stride summary_stats from validation.db,
     normalize strings, and filter to major sagittal motions.
@@ -159,11 +159,17 @@ if __name__ == "__main__":
     import plotly.graph_objects as go
     from plotly.subplots import make_subplots
 
-    root_dir = output_dir(
+    analysis_dir = output_dir(
         "analyses",
         "gait",
         "joint_angles",
     )
+
+    plot_dir = output_dir(
+        "figures",
+        "gait",
+        "joint_angles",
+)
 
     combined_df = load_joint_angle_data(DATABASE_PATH)
     angle_summary, df_trial_lr_mean = compute_angle_summary(combined_df)
@@ -398,6 +404,6 @@ if __name__ == "__main__":
     fig.show()
 
     # Export
-    angle_summary.to_csv(root_dir / "joint_angles_summary.csv", index=False)
-    fig.write_image(root_dir / "joint_angles_by_speed.png", scale=3)
-    print("Saved:", root_dir / "joint_angles_summary.csv")
+    angle_summary.to_csv(analysis_dir / "joint_angles_summary.csv", index=False)
+    fig.write_image(plot_dir / "joint_angles_by_speed.png", scale=3)
+    print("Saved:", analysis_dir / "joint_angles_summary.csv")
