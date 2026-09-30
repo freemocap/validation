@@ -1,3 +1,4 @@
 *.pyc
 outputs/
 freemocap_validation_dataset/
+validation.db
