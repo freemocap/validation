@@ -5,6 +5,7 @@ This repository contains the analysis and reproducibility pipeline for the FreeM
 Simply put, this pipeline makes transparent all of the analyses used for the gait and standing balance analyses in the paper, and will also regenerate the figures and tables reported in the study from the publicly released validation dataset. 
 
 -- *What does the dataset contain?*
+
 The validation dataset contains aligned 3D trajectory data from six participants collected during treadmill gait and standing balance tasks. The dataset contains the 3D data (stored in parquet format) for each subject for 3 FreeMoCap reconstructions (derived using MediaPipe, RTMPose, and ViTPose), and the joint centers calculated from Qualisys marker data, which was used as a reference. 
 
 The public dataset is archived on Zenodo:
