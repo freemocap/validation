@@ -29,15 +29,21 @@ from plotting.gait.joint_angles.joint_angle_spm_utils.joint_angles_plots import 
     COMP_LABEL,
 )
 from plotting.gait.joint_angles.joint_angle_spm_utils.joint_angle_spm import run_spm_paired_ttests
-
+from validation.paths import DATABASE_PATH, output_dir
 # ============================================================
 # Config
 # ============================================================
-root_dir = Path(r"D:\validation_public_release_v1\analyses")
-root_dir.mkdir(exist_ok=True, parents=True)
+root_dir = output_dir(
+    "analyses",
+    "gait",
+    "joint_angles",
+)
 
-plot_dir = Path(r"D:\validation_public_release_v1\figures")
-plot_dir.mkdir(exist_ok=True, parents=True)
+plot_dir = output_dir(
+    "figures",
+    "gait",
+    "joint_angles",
+)
 
 
 REFERENCE = "qualisys"
@@ -60,7 +66,7 @@ COLORS = {
 # 1) Load + compute
 # ============================================================
 print("Loading data from validation.db...")
-combined_df = load_joint_angle_data()
+combined_df = load_joint_angle_data(DATABASE_PATH)
 
 print("Computing angle summary...")
 angle_summary, df_trial_lr_mean = compute_angle_summary(combined_df) #note - this function flips the knee angles to make flexion positive (as is normal)

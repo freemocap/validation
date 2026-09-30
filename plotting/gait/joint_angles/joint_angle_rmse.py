@@ -19,6 +19,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from validation.paths import DATABASE_PATH, output_dir
 
 # ------------------------
 # Config
@@ -32,18 +33,22 @@ COLLAPSE_TO_PARTICIPANT_LEVEL = False
 
 # Optional: save tables
 EXPORT_TABLES = True
-EXPORT_DIR = Path(r"D:\validation_public_release_v1\analyses")
-EXPORT_DIR.mkdir(exist_ok=True, parents=True)
+EXPORT_DIR = output_dir(
+    "analyses",
+    "gait",
+    "joint_angles",
+)
 
-
-TYPST_OUT_DIR = Path(r"D:\validation_public_release_v1\tables")
-TYPST_OUT_DIR.mkdir(exist_ok=True, parents=True)
-
+TYPST_OUT_DIR = output_dir(
+    "tables",
+    "gait",
+    "joint_angles",
+)
 
 # ------------------------
 # 1) Load data from SQLite
 # ------------------------
-conn = sqlite3.connect("validation.db")
+conn = sqlite3.connect(DATABASE_PATH)
 
 query = """
 SELECT t.participant_code,

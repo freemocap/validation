@@ -15,7 +15,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import spm1d
-
+from validation.paths import DATABASE_PATH, output_dir
 
 def speed_key(cond: str) -> float:
     m = re.search(r"speed_(\d+)[_\.](\d+)", str(cond))
@@ -233,16 +233,18 @@ def run_spm_paired_ttests(
 if __name__ == "__main__":
     from plotting.gait.joint_angles.joint_angle_spm_utils.joint_angles_plots import load_joint_angle_data, compute_angle_summary
 
-    root_dir = Path(r"D:\validation\gait\joint_angles")
-    root_dir.mkdir(exist_ok=True, parents=True)
-
+    root_dir = output_dir(
+        "analyses",
+        "gait",
+        "joint_angles",
+)
     REFERENCE_SYSTEM = "qualisys"
     SPM_TRACKERS = ["mediapipe", "rtmpose", "vitpose"]
     ALPHA = 0.05
     TWO_TAILED = True
     Q_EXPECTED = 100
 
-    combined_df = load_joint_angle_data()
+    combined_df = load_joint_angle_data(db_path=DATABASE_PATH)
     _, df_trial_lr_mean = compute_angle_summary(combined_df)
 
     print("Unique trackers:", sorted(df_trial_lr_mean["tracker"].unique()))

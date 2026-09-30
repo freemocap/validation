@@ -3,7 +3,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-
+from validation.paths import DATABASE_PATH, output_dir
 
 # -----------------------------------------------------------------------------
 # Configuration
@@ -33,10 +33,13 @@ JOINT_DISPLAY = {
     "foot_index": "Toe",
 }
 
-DB_PATH = Path("validation.db")
+DB_PATH = DATABASE_PATH
 
-TYPST_OUT_DIR = Path(r"D:\validation_public_release_v1\tables")
-
+TYPST_OUT_DIR = output_dir(
+    "tables",
+    "gait",
+    "joint_trajectories",
+)
 
 # -----------------------------------------------------------------------------
 # Data loading

@@ -5,9 +5,14 @@ import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-from pathlib import Path
-save_root = Path(r"D:\validation_public_release_v1\figures")
-save_root.mkdir(exist_ok=True, parents=True)
+from validation.paths import DATABASE_PATH, output_dir
+
+
+save_root = output_dir(
+    "figures",
+    "gait",
+    "joint_trajectories",
+)
 
 # ------------------------
 # 1) Load data from SQLite
@@ -17,7 +22,8 @@ TRACKERS = ["mediapipe", "rtmpose", "vitpose", "qualisys"]
 joint_to_plot = ["hip", "knee", "ankle", "foot_index"]
 
 
-conn = sqlite3.connect("validation.db")
+conn = sqlite3.connect(DATABASE_PATH)
+
 query = """
 SELECT t.participant_code,
        t.trial_name,

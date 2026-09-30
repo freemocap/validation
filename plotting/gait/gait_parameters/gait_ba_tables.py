@@ -13,10 +13,11 @@ import numpy as np
 import pingouin as pg
 import pandas as pd
 
+from validation.paths import DATABASE_PATH, output_dir
 # ------------------------------------------------------------------
 # Load data
 # ------------------------------------------------------------------
-paired_df = load_paired_gait_data("validation.db")
+paired_df = load_paired_gait_data(DATABASE_PATH)
 
 # ------------------------------------------------------------------
 # Compute stats for a given slice
@@ -133,12 +134,10 @@ for r in speed_rows:
 # ------------------------------------------------------------------
 # 3. Export as Typst tables
 # ------------------------------------------------------------------
-from pathlib import Path
 
-save_root = Path(r"D:\validation_public_release_v1\tables")
-save_root.mkdir(exist_ok=True, parents=True)
+save_root = output_dir( "tables", "gait", "gait_parameters",)
 
-supp_root = Path(r"D:\validation_public_release_v1\tables")
+supp_root = save_root
 
 def fmt_val(v, decimals=2):
     """Format a float with sign for bias, or plain for others."""

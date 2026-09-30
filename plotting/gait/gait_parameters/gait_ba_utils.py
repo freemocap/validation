@@ -8,7 +8,7 @@ Handles: DB query, pivot/melt to paired format, BA statistics,
 import sqlite3
 import pandas as pd
 import numpy as np
-
+from validation.paths import DATABASE_PATH
 # ------------------------------------------------------------------
 # Constants
 # ------------------------------------------------------------------
@@ -66,7 +66,7 @@ ORDER BY t.trial_name, a.path
 """
 
 
-def load_paired_gait_data(db_path="validation.db"):
+def load_paired_gait_data(db_path=DATABASE_PATH):
     """Load gait metrics from DB, pivot to wide, melt to paired format.
 
     Returns a DataFrame with columns:

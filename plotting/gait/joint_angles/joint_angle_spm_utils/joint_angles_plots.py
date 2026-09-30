@@ -14,7 +14,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-
+from validation.paths import DATABASE_PATH, output_dir
 
 TRACKERS = ["mediapipe", "rtmpose", "vitpose", "qualisys"]
 
@@ -159,10 +159,13 @@ if __name__ == "__main__":
     import plotly.graph_objects as go
     from plotly.subplots import make_subplots
 
-    root_dir = Path(r"D:\validation\gait\joint_angles")
-    root_dir.mkdir(exist_ok=True, parents=True)
+    root_dir = output_dir(
+        "analyses",
+        "gait",
+        "joint_angles",
+    )
 
-    combined_df = load_joint_angle_data()
+    combined_df = load_joint_angle_data(DATABASE_PATH)
     angle_summary, df_trial_lr_mean = compute_angle_summary(combined_df)
 
     SPEEDS = sorted(combined_df["condition"].unique().tolist(), key=speed_key)

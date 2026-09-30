@@ -4,6 +4,7 @@ import numpy as np
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+from validation.paths import DATABASE_PATH, output_dir
 from gait_ba_utils import (
     load_paired_gait_data, ba_stats,
     TRACKERS, TRACKER_LABELS,
@@ -12,9 +13,7 @@ from gait_ba_utils import (
 )
 
 
-from pathlib import Path
-save_root = Path(r"D:\validation_public_release_v1\figures")
-save_root.mkdir(exist_ok=True, parents=True)
+save_root = output_dir( "figures", "gait", "gait_parameters",)
 
 # ------------------------------------------------------------------
 # Config 
@@ -40,7 +39,7 @@ METRICS = [
 # ------------------------------------------------------------------
 # Load data
 # ------------------------------------------------------------------
-paired_df = load_paired_gait_data("validation.db")
+paired_df = load_paired_gait_data(DATABASE_PATH)
 
 # ------------------------------------------------------------------
 # Build figure — 3 rows (trackers) × 2 cols (metrics)

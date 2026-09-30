@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from pathlib import Path
-
+from validation.paths import DATABASE_PATH, output_dir
 # ── Config ────────────────────────────────────────────────────────────
 JOINT_ORDER = ["hip", "knee", "ankle", "foot_index"]
 JOINT_LABELS = {"hip": "Hip", "knee": "Knee", "ankle": "Ankle", "foot_index": "Toe"}
@@ -265,12 +265,15 @@ if __name__ == "__main__":
         calculate_total_mean_and_std_rmse,
     )
 
-    DB_PATH = "validation.db"
+    DB_PATH = DATABASE_PATH
     TRACKERS_ALL = ["mediapipe", "rtmpose", "vitpose", "qualisys"]
     REFERENCE_SYSTEM = "qualisys"
 
-    FIGURE_OUT_DIR = Path(r"D:\validation_public_release_v1\figures")
-    FIGURE_OUT_DIR.mkdir(exist_ok=True, parents=True)
+    FIGURE_OUT_DIR = output_dir(
+        "figures",
+        "gait",
+        "joint_trajectories",
+)
 
     database_data = load_trajectory_summary_stats(DB_PATH)
     df_trial_lr_mean = combine_left_and_right_side(database_data, JOINT_ORDER)
