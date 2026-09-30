@@ -48,6 +48,10 @@ Run the validation analyses:
 ```bash
 uv run validation run
 ```
+*Note: This step runs all of the gait and balance analyses for all six participants, across each of the four sets of 3D data. It may take about 20-30 minutes to fully finish all the analyses*
+
+*Another note: The downloaded data is about 1.5GB. When all the analyses are run, it will be ~6GB total, so plan accordingly.*
+
 
 Build the artifact database used by the plotting scripts:
 
