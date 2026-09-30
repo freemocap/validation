@@ -14,7 +14,7 @@ The public dataset is archived on Zenodo:
 
 ### Requirements
 
-- Git
+- Git (or your preferred Github repo manager)
 - [uv](https://docs.astral.sh/uv/getting-started/installation/)
 - Python 3.11
 
