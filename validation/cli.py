@@ -7,14 +7,29 @@ from database.index_recordings import (
     build_database,
     print_database_summary,
 )
-from validation.paths import DATABASE_PATH, REPO_ROOT
+from validation.paths import (
+    DATABASE_PATH,
+    DATA_ROOT,
+    DATASET_ROOT,
+    REPO_ROOT,
+)
+from validation.download_data import download_dataset
 from validation.runners.plot_all import run_plot_tasks
 from validation.runners.run_batch import run_batch
 
 
-DEFAULT_DATASET_ROOT = REPO_ROOT / "data"
+DEFAULT_DATASET_ROOT = DATA_ROOT
 DEFAULT_CONFIG_ROOT = REPO_ROOT / "configs"
 
+def download_data_command(
+    args: argparse.Namespace,
+) -> int:
+    download_dataset(
+        destination=args.destination,
+        force=args.force,
+    )
+
+    return 0
 
 def run_command(args: argparse.Namespace) -> int:
     results = run_batch(
@@ -59,6 +74,7 @@ def plot_all_command(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
+    
     parser = argparse.ArgumentParser(
         prog="validation",
         description=(
@@ -71,6 +87,37 @@ def build_parser() -> argparse.ArgumentParser:
         dest="command",
         required=True,
     )
+
+    download_parser = subparsers.add_parser(
+        "download-data",
+        help=(
+            "Download the validation dataset "
+            "from Zenodo."
+        ),
+    )
+
+    download_parser.add_argument(
+        "--destination",
+        type=Path,
+        default=DATASET_ROOT,
+        help=(
+            "Dataset destination. Defaults to "
+            "repo/freemocap_validation_dataset."
+        ),
+    )
+
+    download_parser.add_argument(
+        "--force",
+        action="store_true",
+        help=(
+            "Replace an existing dataset "
+            "directory."
+        ),
+    )
+
+    download_parser.set_defaults(
+        func=download_data_command,
+)
 
     # ---------------------------------------------------------
     # run

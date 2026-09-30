@@ -29,6 +29,7 @@ tests/test_output_paths.py
 tests/test_trial_identity.py
 validation/__init__.py
 validation/cli.py
+validation/download_data.py
 validation/figure_display.py
 validation/paths.py
 validation/step_registry.py

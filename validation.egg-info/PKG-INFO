@@ -11,6 +11,7 @@ Requires-Dist: pingouin>=0.6.1
 Requires-Dist: plotly==6.0.1
 Requires-Dist: pyarrow==19.0.1
 Requires-Dist: pydantic==2.7.4
+Requires-Dist: requests>=2.32
 Requires-Dist: pyyaml==6.0.2
 Requires-Dist: scipy==1.11.4
 Requires-Dist: skellyforge==2024.12.1009
