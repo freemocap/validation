@@ -23,6 +23,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.colors import sample_colorscale
 from validation.paths import DATABASE_PATH, output_dir
+from validation.figure_display import show_figure
 
 
 # --------------------------------------------------------------------------- #
@@ -974,7 +975,7 @@ if __name__ == "__main__":
         cfg=cfg,
     )
 
-    fig.show()
+    show_figure(fig)
     fig.write_image(
         root_path / "com_agreement_and_sensitivity.svg",
         scale=3,

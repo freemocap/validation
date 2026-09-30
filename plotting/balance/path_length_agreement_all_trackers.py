@@ -10,6 +10,7 @@ from plotly.colors import sample_colorscale
 from plotly.subplots import make_subplots
 
 from validation.paths import DATABASE_PATH, output_dir
+from validation.figure_display import show_figure
 
 
 # =============================================================================
@@ -2100,9 +2101,9 @@ if __name__ == "__main__":
         )
     )
 
-    fig_mp.show()
-    fig_all.show()
 
+    show_figure(fig_mp)
+    show_figure(fig_all)
     # -------------------------------------------------------------------------
     # Typst table
     # -------------------------------------------------------------------------

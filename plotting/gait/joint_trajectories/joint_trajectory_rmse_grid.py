@@ -4,6 +4,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from pathlib import Path
 from validation.paths import DATABASE_PATH, output_dir
+from validation.figure_display import show_figure
+
 # ── Config ────────────────────────────────────────────────────────────
 JOINT_ORDER = ["hip", "knee", "ankle", "foot_index"]
 JOINT_LABELS = {"hip": "Hip", "knee": "Knee", "ankle": "Ankle", "foot_index": "Toe"}
@@ -252,7 +254,7 @@ def generate_trajectory_rmse_grid(
         print(f"Saved: {save_path.with_suffix('.png')}")
 
     if show:
-        fig.show()
+        show_figure(fig)
 
     return fig
 

@@ -11,6 +11,7 @@ from gait_ba_utils import (
     SPEED_ORDER, SPEED_STYLE,
     inches_to_px, style_paperish,
 )
+from validation.figure_display import show_figure
 
 
 save_root = output_dir( "figures", "gait", "gait_parameters",)
@@ -223,7 +224,6 @@ for i in range(1, nrows * ncols + 1):
     fig.layout[key].range = [-y_pad, y_pad]
 
 
-
-fig.show()
+show_figure(fig)
 fig.write_image(save_root / "ba_stride_both.png", scale=3)
 print(f"\nFigure saved to: {save_root / 'ba_stride_both.png'}")

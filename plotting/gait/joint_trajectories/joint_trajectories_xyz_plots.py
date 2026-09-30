@@ -6,6 +6,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 from validation.paths import DATABASE_PATH, output_dir
+from validation.figure_display import show_figure
+
 
 
 save_root = output_dir(
@@ -399,7 +401,7 @@ for axis in AXES_TO_PLOT:
             ann.text = f"<b>{ann.text}</b>"
             ann.font = dict(size=13, color="#333")
 
-    fig.show()
+    show_figure(fig)
 
     # Optional exports:
     fig.write_image(save_root / f"trajectories_{axis}.svg", scale=3)

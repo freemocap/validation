@@ -7,6 +7,7 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from validation.paths import DATABASE_PATH, output_dir
+from validation.figure_display import show_figure
 
 
 # =============================================================================
@@ -1743,7 +1744,7 @@ if __name__ == "__main__":
         )
     )
 
-    fig_all.show()
+    show_figure(fig_all)
 
     figure_path = (
         figures_path

@@ -30,6 +30,8 @@ from plotting.gait.joint_angles.joint_angle_spm_utils.joint_angles_plots import 
 )
 from plotting.gait.joint_angles.joint_angle_spm_utils.joint_angle_spm import run_spm_paired_ttests
 from validation.paths import DATABASE_PATH, output_dir
+from validation.figure_display import show_figure
+
 # ============================================================
 # Config
 # ============================================================
@@ -467,7 +469,7 @@ fig.update_layout(
     plot_bgcolor="white",
 )
 
-fig.show()
+show_figure(fig)
 
 # Export
 fig.write_image(str(plot_dir / "joint_angles_with_spm.svg"), scale=3)

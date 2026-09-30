@@ -465,8 +465,8 @@ for col_idx in range(
 # --------------------------------------------------------------------------- #
 # Show and save
 # --------------------------------------------------------------------------- #
-
-fig.show()
+from validation.figure_display import show_figure
+show_figure(fig)
 
 fig.write_image(
     root_path / "balance_sway_metrics.svg",

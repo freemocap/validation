@@ -15,6 +15,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from validation.paths import DATABASE_PATH, output_dir
+from validation.figure_display import show_figure
+
 
 TRACKERS = ["mediapipe", "rtmpose", "vitpose", "qualisys"]
 
@@ -401,7 +403,7 @@ if __name__ == "__main__":
             annotation.text = f"<b>{annotation.text}</b>"
             annotation.font = dict(size=11, color="#333")
 
-    fig.show()
+    show_figure(fig)
 
     # Export
     angle_summary.to_csv(analysis_dir / "joint_angles_summary.csv", index=False)

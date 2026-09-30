@@ -20,6 +20,8 @@ from scipy.stats import chi2
 from validation.utils.actor_utils import make_freemocap_actor_from_parquet
 
 from validation.paths import DATABASE_PATH, REPO_ROOT, output_dir
+from validation.figure_display import show_figure
+
 # =========================
 # Paths
 # =========================
@@ -818,7 +820,7 @@ fig.update_yaxes(
 # Show / export
 # =========================
 
-fig.show()
+show_figure(fig)
 
 
 fig.write_image(

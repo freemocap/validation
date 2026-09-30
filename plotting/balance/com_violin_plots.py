@@ -480,8 +480,6 @@ fig.update_xaxes(
 # Show / export
 # =========================
 
-# Uncomment for interactive inspection.
-# fig.show()
 
 
 fig.write_image(
