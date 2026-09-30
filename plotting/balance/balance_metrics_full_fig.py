@@ -39,7 +39,6 @@ AGG = "trial"  # "trial" (matches old fig) or "participant" (matches table)
 conn = sqlite3.connect(DATABASE_PATH)
 
 root_path = output_dir("figures", "balance")
-root_path.mkdir(exist_ok=True, parents=True)
 
 
 condition_order = [

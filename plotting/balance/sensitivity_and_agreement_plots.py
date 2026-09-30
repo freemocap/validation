@@ -877,7 +877,6 @@ if __name__ == "__main__":
 
     path_to_db = DATABASE_PATH
     root_path = output_dir("figures", "balance")
-    root_path.mkdir(exist_ok=True, parents=True)
 
     # ---- single DB read ----
     db_df = query_df(path_to_db, cfg.all_trackers)

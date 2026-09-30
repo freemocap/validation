@@ -1873,16 +1873,6 @@ if __name__ == "__main__":
 
     tables_path = output_dir("tables", "balance")
 
-    figures_path.mkdir(
-        exist_ok=True,
-        parents=True,
-    )
-
-    tables_path.mkdir(
-        exist_ok=True,
-        parents=True,
-    )
-
     path_to_db = DATABASE_PATH
 
     # -------------------------------------------------------------------------

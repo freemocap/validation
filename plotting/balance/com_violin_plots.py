@@ -43,7 +43,6 @@ EXPORT_BASENAME = (
 
 
 root_path = output_dir("figures", "balance")
-root_path.mkdir(exist_ok=True, parents=True)
 
 
 # =========================

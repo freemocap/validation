@@ -11,11 +11,8 @@ from validation.paths import DATABASE_PATH, output_dir
 # Paths / database
 # --------------------------------------------------------------------------- #
 
-root_path = output_dir("figures", "balance")
-root_path.mkdir(
-    exist_ok=True,
-    parents=True,
-)
+root_path = output_dir("tables", "balance")
+
 
 conn = sqlite3.connect(
     DATABASE_PATH

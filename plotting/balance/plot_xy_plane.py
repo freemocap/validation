@@ -19,19 +19,13 @@ from scipy.stats import chi2
 
 from validation.utils.actor_utils import make_freemocap_actor_from_parquet
 
-from validation.paths import DATABASE_PATH, output_dir
-
+from validation.paths import DATABASE_PATH, REPO_ROOT, output_dir
 # =========================
 # Paths
 # =========================
 
 
 root_path = output_dir("figures", "balance")
-
-root_path.mkdir(
-    exist_ok=True,
-    parents=True,
-)
 
 
 # =========================
