@@ -1,0 +1,125 @@
+Metadata-Version: 2.4
+Name: validation
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: <3.12,>=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: kaleido==0.2.1
+Requires-Dist: numpy==1.26.2
+Requires-Dist: pandas==2.1.4
+Requires-Dist: pingouin>=0.6.1
+Requires-Dist: plotly==6.0.1
+Requires-Dist: pyarrow==19.0.1
+Requires-Dist: pydantic==2.7.4
+Requires-Dist: pyyaml==6.0.2
+Requires-Dist: scipy==1.11.4
+Requires-Dist: skellyforge==2024.12.1009
+Requires-Dist: skellymodels
+Requires-Dist: spm1d>=0.4.53
+Requires-Dist: tabulate>=0.10.0
+
+# FreeMoCap Validation Dataset
+
+**Version:** 1.0
+
+This dataset contains the de-identified motion-capture data used to validate FreeMoCap during treadmill gait and standing balance tasks. It accompanies the FreeMoCap validation analysis repository and is intended to support reproduction of the results, figures, and tables reported in the associated validation study.
+
+## Dataset overview
+
+The dataset contains data from six participants completing treadmill gait and standing balance tasks.
+
+For each participant, the dataset includes:
+
+- Two treadmill gait trials containing multiple walking-speed conditions
+- Two standing balance trials containing Eyes Open/Closed × Solid/Foam conditions
+- Markerless motion-capture results from:
+  - MediaPipe
+  - RTMPose
+  - ViTPose
+- Corresponding joint-center trajectories derived from a marker-based Qualisys motion-capture system and used as the reference
+
+In total, the dataset contains 24 trials.
+
+The public release contains the aligned 3D trajectory data used as inputs to the validation analyses. Derived analysis outputs, manuscript figures, and tables are not included in the dataset; these are generated using the accompanying validation repository.
+
+The dataset does not contain raw video recordings or directly identifying participant information.
+
+## Files
+
+The dataset is distributed as one archive per participant:
+
+    freemocap_validation_dataset_v1.0_sub-001.zip
+    freemocap_validation_dataset_v1.0_sub-002.zip
+    freemocap_validation_dataset_v1.0_sub-003.zip
+    freemocap_validation_dataset_v1.0_sub-004.zip
+    freemocap_validation_dataset_v1.0_sub-005.zip
+    freemocap_validation_dataset_v1.0_sub-006.zip
+
+A `SHA256SUMS.txt` file provides SHA-256 checksums for verifying the downloaded archives.
+
+Together, the six participant archives constitute the complete version 1.0 dataset.
+
+## Directory structure
+
+Each participant archive contains a single participant directory. When all six archives are extracted into the same `data/` directory, the resulting structure is:
+
+    data/
+    ├── sub-001/
+    │   ├── task-balance_trial-01/
+    │   ├── task-balance_trial-02/
+    │   ├── task-treadmill_trial-01/
+    │   └── task-treadmill_trial-02/
+    ├── sub-002/
+    ├── sub-003/
+    ├── sub-004/
+    ├── sub-005/
+    └── sub-006/
+
+Within each trial, data are organized by tracking system:
+
+    task-treadmill_trial-01/
+    ├── mediapipe/
+    ├── rtmpose/
+    ├── vitpose/
+    └── qualisys/
+
+For each system, the canonical aligned 3D trajectory data are stored as:
+
+    aligned_3d_data/
+    └── freemocap_data_by_frame.parquet
+
+The Parquet files are the canonical inputs used by the public validation pipeline.
+
+## Reproducing the validation study
+
+The analysis code, trial configurations, pipeline definitions, and plotting scripts are maintained separately in the `freemocap/validation` repository.
+
+The validation repository is designed to operate directly on the directory structure described above. The six participant archives can be downloaded and extracted into a common `data/` directory, which can then be supplied as the dataset root for the validation pipeline.
+
+The validation pipeline generates the derived gait and balance analysis outputs used to reproduce the results, figures, and tables reported in the associated validation study.
+
+See the validation repository for installation and reproduction instructions.
+
+## Software
+
+FreeMoCap is a free and open-source multi-camera markerless motion-capture platform.
+
+The FreeMoCap software release is archived on Zenodo:
+
+**DOI:** 10.5281/zenodo.22131400
+
+The validation dataset includes outputs generated using MediaPipe, RTMPose, and ViTPose pose-estimation backends, together with corresponding data derived from the marker-based Qualisys reference system.
+
+## Dataset versioning
+
+This release is **version 1.0** of the public FreeMoCap validation dataset.
+
+Corrections or changes to the released data will be distributed as new dataset versions. Users should cite the specific dataset version used in their work.
+
+## Citation
+
+Please cite the Zenodo record for the specific version of this dataset used in your work.
+
+## License
+
+See the Zenodo record for the license governing reuse of this dataset.

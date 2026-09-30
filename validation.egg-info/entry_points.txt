@@ -1,0 +1,2 @@
+[console_scripts]
+validation = validation.cli:main

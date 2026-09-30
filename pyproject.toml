@@ -20,6 +20,24 @@ dependencies = [
     "tabulate>=0.10.0",
 ]
 
+[project.scripts]
+validation = "validation.cli:main"
+
+[tool.uv]
+package = true
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "validation*",
+    "database*",
+    "plotting*",
+]
+
 [tool.uv.sources]
 skellymodels = { git = "https://github.com/aaroncherian/skellymodels.git", rev = "validation-v1" }
 

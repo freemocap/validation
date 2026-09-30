@@ -1,0 +1,13 @@
+kaleido==0.2.1
+numpy==1.26.2
+pandas==2.1.4
+pingouin>=0.6.1
+plotly==6.0.1
+pyarrow==19.0.1
+pydantic==2.7.4
+pyyaml==6.0.2
+scipy==1.11.4
+skellyforge==2024.12.1009
+skellymodels
+spm1d>=0.4.53
+tabulate>=0.10.0
