@@ -19,18 +19,14 @@ from scipy.stats import chi2
 
 from validation.utils.actor_utils import make_freemocap_actor_from_parquet
 
+from validation.paths import DATABASE_PATH, output_dir
 
 # =========================
 # Paths
 # =========================
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
 
-DATABASE_PATH = REPO_ROOT / "validation.db"
-
-root_path = Path(
-    r"D:\validation_public_release_v1\figures"
-)
+root_path = output_dir("figures", "balance")
 
 root_path.mkdir(
     exist_ok=True,

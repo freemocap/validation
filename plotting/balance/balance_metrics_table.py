@@ -3,25 +3,26 @@ import sqlite3
 
 from pathlib import Path
 
+from validation.paths import DATABASE_PATH, output_dir
+
+
 
 # --------------------------------------------------------------------------- #
 # Paths / database
 # --------------------------------------------------------------------------- #
 
-table_path = Path(
-    r"D:\validation_public_release_v1\tables"
-)
-table_path.mkdir(
+root_path = output_dir("figures", "balance")
+root_path.mkdir(
     exist_ok=True,
     parents=True,
 )
 
 conn = sqlite3.connect(
-    "validation.db"
+    DATABASE_PATH
 )
 
 out_file = (
-    table_path
+    root_path
     / "balance_metrics_table.typ"
 )
 

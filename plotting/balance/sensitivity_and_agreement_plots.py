@@ -22,6 +22,7 @@ import pingouin as pg
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from plotly.colors import sample_colorscale
+from validation.paths import DATABASE_PATH, output_dir
 
 
 # --------------------------------------------------------------------------- #
@@ -874,8 +875,8 @@ def plot_mediapipe_combined(
 if __name__ == "__main__":
     cfg = PlotConfig()
 
-    path_to_db = Path("validation.db")
-    root_path = Path(r"D:\validation_public_release_v1\figures")
+    path_to_db = DATABASE_PATH
+    root_path = output_dir("figures", "balance")
     root_path.mkdir(exist_ok=True, parents=True)
 
     # ---- single DB read ----

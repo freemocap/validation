@@ -28,6 +28,7 @@ from pathlib import Path
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+from validation.paths import DATABASE_PATH, output_dir
 
 # --------------------------------------------------------------------------- #
 # Config
@@ -35,11 +36,9 @@ from plotly.subplots import make_subplots
 
 AGG = "trial"  # "trial" (matches old fig) or "participant" (matches table)
 
-conn = sqlite3.connect("validation.db")
+conn = sqlite3.connect(DATABASE_PATH)
 
-root_path = Path(
-    r"D:\validation_public_release_v1\figures"
-)
+root_path = output_dir("figures", "balance")
 root_path.mkdir(exist_ok=True, parents=True)
 
 

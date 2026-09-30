@@ -9,6 +9,8 @@ import plotly.graph_objects as go
 from plotly.colors import sample_colorscale
 from plotly.subplots import make_subplots
 
+from validation.paths import DATABASE_PATH, output_dir
+
 
 # =============================================================================
 # Configuration
@@ -1866,19 +1868,10 @@ if __name__ == "__main__":
 
     cfg = PlotConfig()
 
-    root_path = Path(
-        r"D:\validation_public_release_v1"
-    )
 
-    figures_path = (
-        root_path
-        / "figures"
-    )
+    figures_path = output_dir("figures", "balance")
 
-    tables_path = (
-        root_path
-        / "tables"
-    )
+    tables_path = output_dir("tables", "balance")
 
     figures_path.mkdir(
         exist_ok=True,
@@ -1890,9 +1883,7 @@ if __name__ == "__main__":
         parents=True,
     )
 
-    path_to_db = Path(
-        "validation.db"
-    )
+    path_to_db = DATABASE_PATH
 
     # -------------------------------------------------------------------------
     # Load canonical balance_metrics.csv artifacts

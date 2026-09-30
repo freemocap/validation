@@ -20,11 +20,9 @@ from pathlib import Path
 
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+from validation.paths import DATABASE_PATH, output_dir
 
 
-# =========================
-# Paper-ready figure params
-# =========================
 
 DPI = 300
 
@@ -44,24 +42,15 @@ EXPORT_BASENAME = (
 )
 
 
-root_path = Path(
-    r"D:\validation_public_release_v1\figures"
-)
-
-root_path.mkdir(
-    exist_ok=True,
-    parents=True,
-)
+root_path = output_dir("figures", "balance")
+root_path.mkdir(exist_ok=True, parents=True)
 
 
 # =========================
 # Load velocity artifacts
 # =========================
 
-conn = sqlite3.connect(
-    "validation.db"
-)
-
+conn = sqlite3.connect(DATABASE_PATH)
 
 query = """
 SELECT

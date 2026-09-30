@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from validation.paths import DATABASE_PATH, output_dir
 
 
 # =============================================================================
@@ -1574,23 +1575,11 @@ if __name__ == "__main__":
 
     cfg = PlotConfig()
 
-    path_to_database = Path(
-        "validation.db"
-    )
+ 
+    figures_path = output_dir("figures", "balance")
 
-    root_path = Path(
-        r"D:\validation_public_release_v1"
-    )
+    tables_path = output_dir("tables", "balance")
 
-    figures_path = (
-        root_path
-        / "figures"
-    )
-
-    tables_path = (
-        root_path
-        / "tables"
-    )
 
     figures_path.mkdir(
         exist_ok=True,
@@ -1601,6 +1590,9 @@ if __name__ == "__main__":
         exist_ok=True,
         parents=True,
     )
+
+    path_to_database = DATABASE_PATH
+
 
     # -------------------------------------------------------------------------
     # Load balance_metrics.csv
