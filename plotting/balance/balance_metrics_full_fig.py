@@ -29,6 +29,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 from validation.paths import DATABASE_PATH, output_dir
+from validation.figure_display import show_figure
+
 
 # --------------------------------------------------------------------------- #
 # Config
@@ -465,7 +467,6 @@ for col_idx in range(
 # --------------------------------------------------------------------------- #
 # Show and save
 # --------------------------------------------------------------------------- #
-from validation.figure_display import show_figure
 show_figure(fig)
 
 fig.write_image(
