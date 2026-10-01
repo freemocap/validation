@@ -2,3 +2,8 @@
 outputs/
 freemocap_validation_dataset/
 validation.db
+
+# SkellyDocs / Node
+validation-docs/node_modules/
+validation-docs/.docusaurus/
+validation-docs/build/
