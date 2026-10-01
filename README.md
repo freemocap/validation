@@ -63,9 +63,11 @@ For standing balance trials, the pipeline computes (per trial, per FreeMocap tra
 
 The figure and table generation scripts are located in the `plotting/` directory. These scripts read the outputs of the validation analysis pipeline and generate the figures and tables reported in the study.
 
+Before generating figures and tables, the pipeline outputs are indexed in a local SQLite database (validation.db). This provides the plotting scripts with a consistent way to locate the analysis outputs generated across participants, trials, and tracking systems
+
 ## How to Run It All
 
-This quick start goes over how to use this repository to download the dataset, run all the analyses, and regenerate all tables and figures. For more detailed information on what the dataset contains, see below. 
+This quick start goes over how to use this repository to download the dataset, run all the analyses, and regenerate all tables and figures. 
 
 ### Requirements
 
@@ -149,7 +151,7 @@ freemocap_validation_dataset/
     └── sub-006/
 ```
 
-On default, the dataset is downloaded into the root of the repository.
+By default, the dataset is downloaded into the root of the repository.
 The downloaded dataset is excluded from Git.
 
 ### `run`
